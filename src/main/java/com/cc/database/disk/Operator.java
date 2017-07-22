@@ -15,7 +15,7 @@ public interface Operator {
 
     long set(Model model);
 
-    boolean update(Model model);
+    long update(long lineNumber, Model model);
 
     boolean delete(long lineNumber);
 
