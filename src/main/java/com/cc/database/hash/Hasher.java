@@ -8,11 +8,11 @@ public interface Hasher {
 
     int FIRSTNAME = 0;
     int SECONDNAME = 1;
-    int PHONE = 3;
-    int EMAIL = 4;
-    int COMPANY = 5;
-    int DEPARTMENT = 6;
-    int POSITION = 7;
+    int PHONE = 2;
+    int EMAIL = 3;
+    int COMPANY = 4;
+    int DEPARTMENT = 5;
+    int POSITION = 6;
 
 
     String hash(String val, int field);
