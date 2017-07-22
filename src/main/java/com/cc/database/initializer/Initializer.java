@@ -36,7 +36,7 @@ public class Initializer {
                 lineNumber++;
 
                 //输出
-                byte[] outBytes = StringToByte(columns);
+                byte[] outBytes = StringArrayToByte(columns);
                 long pos = targetWriter.length();
 
                 StringBuilder lineRecord = new StringBuilder();
@@ -45,14 +45,14 @@ public class Initializer {
 
                 targetWriter.seek(pos);
                 targetWriter.write(outBytes);
-                lineRecordWriter.write(lineRecord.toString().getBytes());
+                lineRecordWriter.write(StringToByte(lineRecord.toString(), 100));
             }
         }catch(Exception e){
             e.printStackTrace();
         }
     }
 
-    private byte[]  StringToByte(String[] columns){
+    private byte[]  StringArrayToByte(String[] columns){
 
         StringBuilder retStrBuilder = new StringBuilder();
 
@@ -63,6 +63,17 @@ public class Initializer {
             }
         }
         return retStrBuilder.toString().getBytes();
+    }
+
+    private byte[] StringToByte(String val, int MAX_WIDTH){
+        byte[] retBytes = new byte[MAX_WIDTH];
+        byte[] originalBytes = val.getBytes();
+
+        for(int i=0; i<MAX_WIDTH; i++){
+            retBytes[i] = i<originalBytes.length? originalBytes[i] : 0;
+        }
+
+        return retBytes;
     }
 
 
