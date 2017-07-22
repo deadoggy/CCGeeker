@@ -7,6 +7,8 @@ import java.util.List;
  */
 public interface Operator {
 
+    int LINE_REC_WIDTH = 100;
+
     Model get(long lineNumber);
 
     List<Model> get(List<Long> lineNumbers);
