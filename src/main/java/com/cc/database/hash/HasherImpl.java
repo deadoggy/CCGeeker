@@ -7,7 +7,6 @@ import java.util.zip.CRC32;
  */
 public class HasherImpl implements IHasher {
 
-    private CRC32 crc32 = new CRC32();
 
     public String hash(String val, int field) {
         String code = "";
@@ -41,21 +40,23 @@ public class HasherImpl implements IHasher {
 
 
     private String getDepartmentHash(String val) {
-        return  hashCode(val.toCharArray());
+        return val;
     }
 
 
     private String getPositionHash(String val) {
-        return hashCode(val.toCharArray());
+        return val;
     }
 
     private String getCompanyHash(String val) {
-        return hashCode(val.toCharArray());
+        return val;
     }
 
     private String getEmailHash(String val) {
-        int lenght = val.length();
-        return val.substring(lenght/4,lenght-1);
+        String[] splits = val.split("@");
+        String hash=splits[1];
+        hash = hash + splits[0].substring(0,splits[0].length()/4*3);
+        return hash;
     }
 
     /**
@@ -78,7 +79,7 @@ public class HasherImpl implements IHasher {
         for(int i=2;i<bytes.length;i++){
             newbytes[i-2] = bytes[i];
         }
-        return hashCode(new String(newbytes).toCharArray());
+        return new String(newbytes);
     }
 
 
@@ -129,7 +130,7 @@ public class HasherImpl implements IHasher {
      */
     private String hashCode(char[] value) {
         long h = 0;
-        if (h == 0 && value.length > 0) {
+        if (value.length > 0) {
             char val[] = value;
             for (int i = 0; i < value.length; i++) {
                 h = 31 * h + val[i];
