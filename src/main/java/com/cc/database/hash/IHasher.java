@@ -3,7 +3,7 @@ package com.cc.database.hash;
 /**
  * Created by deadoggy on 17-7-22.
  */
-public interface Hasher {
+public interface IHasher {
 
 
     int FIRSTNAME = 0;
@@ -16,5 +16,7 @@ public interface Hasher {
 
 
     String hash(String val, int field);
+
+
 
 }
