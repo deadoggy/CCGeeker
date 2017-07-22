@@ -1,4 +1,4 @@
-package com.cc.database.Initializer;
+package com.cc.database.initializer;
 
 import java.io.*;
 

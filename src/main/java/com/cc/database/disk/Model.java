@@ -1,4 +1,4 @@
-package com.cc.database.Disk;
+package com.cc.database.disk;
 
 /**
  * Created by deadoggy on 17-7-22.
