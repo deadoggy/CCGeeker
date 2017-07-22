@@ -10,7 +10,7 @@ import java.util.Scanner;
  */
 public class Main {
 
-    public static  void main(String args[]){
+    public static  void main(String args[]) throws Exception {
 
         sql_analysis  analysis = new sql_analysis();
 
@@ -25,7 +25,10 @@ public class Main {
         if(scanner.hasNextLine())
         {
             String exce = scanner.nextLine();
+            long start = System.currentTimeMillis();
             analysis.execute(exce);
+            long end=System.currentTimeMillis();
+            System.out.println(end-start);
         }
 
     }

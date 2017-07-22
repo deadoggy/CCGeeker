@@ -15,9 +15,9 @@ public class sql_analysis {
     private Map<Integer, Map<String,List<Long>> >filter;
     private HasherImpl stringTohash;
     private DataOperator DataFactory;
-    public sql_analysis(){
+    public sql_analysis() throws Exception {
         stringTohash=new HasherImpl();
-        DataFactory=new DataOperator();
+        DataFactory=DataOperator.getInstance();
         filter = new HashMap<Integer, Map<String,List<Long>> >();
         for(int i=0;i<7;i++){
             filter.put(i, new HashMap<String, List<Long>>());
@@ -74,36 +74,38 @@ public class sql_analysis {
         }
         out:for(int i=0;i<rowList.size();i++){
            Model model =  DataFactory.get(rowList.get(i));
-           for(int j=0;j<6;j++){
-               if(slist[i]!=null){
-                   switch (i){
+           for(int j=0;j<7;j++){
+               if(slist[j]!=null){
+                   switch (j){
                        case 0:
-                           if(!slist[0].equals(model.Name)){
-                               continue out;
-                           }
                            break;
                        case 1:
-                           if(!slist[1].equals(model.Phone)){
+                           if(!slist[1].equals(model.Name)){
                                continue out;
                            }
                            break;
                        case 2:
-                           if(!slist[2].equals(model.Email)){
+                           if(!slist[2].equals(model.Phone)){
                                continue out;
                            }
                            break;
                        case 3:
-                           if(!slist[3].equals(model.Company)){
+                           if(!slist[3].equals(model.Email)){
                                continue out;
                            }
                            break;
                        case 4:
-                           if(!slist[4].equals(model.Department)){
+                           if(!slist[4].equals(model.Company)){
                                continue out;
                            }
                            break;
                        case 5:
-                           if(!slist[5].equals(model.Position)){
+                           if(!slist[5].equals(model.Department)){
+                               continue out;
+                           }
+                           break ;
+                       case 6:
+                           if(!slist[6].equals(model.Position)){
                                continue out;
                            }
                            break;
@@ -195,7 +197,7 @@ public class sql_analysis {
         return result;
     }
 
-    public  static void main(String[] args){
+    public  static void main(String[] args) throws Exception {
         sql_analysis d=new sql_analysis();
         System.out.println( d.execute("select name='王冠淞', phone='123'"));
         System.out.println( d.execute("count"));

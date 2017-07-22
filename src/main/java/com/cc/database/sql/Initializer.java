@@ -46,16 +46,16 @@ public class Initializer {
 
 
                 lineNumber++;
-
- //               processMap(columns[0],lineNumber,0);
+                processMap(columns[0],lineNumber,0);
                 processMap(columns[0],lineNumber,1);
 //                processMap(columns[1],lineNumber,2);
 //                processMap(columns[2],lineNumber,3);
 //                processMap(columns[3],lineNumber,4);
 //                processMap(columns[4],lineNumber,5);
 //                processMap(columns[5],lineNumber,6);
+
                 //输出
-                byte[] outBytes = StringToByte(columns);
+                byte[] outBytes = StringArrayToByte(columns);
                 long pos = targetWriter.length();
 
                 StringBuilder lineRecord = new StringBuilder();
@@ -64,10 +64,9 @@ public class Initializer {
 
                 targetWriter.seek(pos);
                 targetWriter.write(outBytes);
-                lineRecordWriter.write(lineRecord.toString().getBytes());
+                lineRecordWriter.write(StringToByte(lineRecord.toString(), 100));
 
-
-                if(lineNumber>50000){
+                if(lineNumber>5000000){
                     break;
                 }
             }
@@ -101,6 +100,29 @@ public class Initializer {
         return retStrBuilder.toString().getBytes();
     }
 
+    private byte[]  StringArrayToByte(String[] columns){
+
+        StringBuilder retStrBuilder = new StringBuilder();
+
+        for(int i=0; i<columns.length; i++){
+            retStrBuilder.append(columns[i]);
+            if(i <= 4){
+                retStrBuilder.append("|-|");
+            }
+        }
+        return retStrBuilder.toString().getBytes();
+    }
+
+    private byte[] StringToByte(String val, int MAX_WIDTH){
+        byte[] retBytes = new byte[MAX_WIDTH];
+        byte[] originalBytes = val.getBytes();
+
+        for(int i=0; i<MAX_WIDTH; i++){
+            retBytes[i] = i<originalBytes.length? originalBytes[i] : 0;
+        }
+
+        return retBytes;
+    }
 
 //    public static void main(String[] argv){
 //        Initializer dataWasher = new Initializer();
