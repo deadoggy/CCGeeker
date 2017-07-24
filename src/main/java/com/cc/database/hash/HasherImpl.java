@@ -53,9 +53,12 @@ public class HasherImpl implements IHasher {
     }
 
     private String getEmailHash(String val) {
-        String[] splits = val.split("@");
-        String hash=splits[1];
-        hash = hash + splits[0].substring(0,splits[0].length()/4*3);
+        String hash=val;
+        if(val.contains("@")){
+            String[] splits = val.split("@");
+             hash=splits[1];
+            hash = hash + splits[0].substring(0,splits[0].length()/4*3);
+        }
         return hash;
     }
 
@@ -65,7 +68,7 @@ public class HasherImpl implements IHasher {
      * @return
      */
     private String getPhoneHash(String val) {
-        return  val.substring(0,8)+"";
+        return  val.substring(0,val.length()/11*8)+"";
     }
 
     /**
@@ -74,12 +77,12 @@ public class HasherImpl implements IHasher {
      * @return
      */
     private String getSecondNameHash(String val) {
-        byte[] bytes = val.getBytes();
-        byte[] newbytes = new byte[bytes.length-2];
-        for(int i=2;i<bytes.length;i++){
-            newbytes[i-2] = bytes[i];
-        }
-        return new String(newbytes);
+//        byte[] bytes = val.getBytes();
+//        byte[] newbytes = new byte[bytes.length-2];
+//        for(int i=2;i<bytes.length;i++){
+//            newbytes[i-2] = bytes[i];
+//        }
+        return val;
     }
 
 
